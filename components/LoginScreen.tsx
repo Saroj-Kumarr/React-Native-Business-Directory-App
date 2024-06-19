@@ -3,8 +3,32 @@ import React from "react";
 import { Colors } from "@/constants/Colors";
 import { TouchableOpacity } from "react-native";
 const loginImage = require("../assets/images/login.png");
+import * as WebBrowser from "expo-web-browser";
+import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
+import { useOAuth } from "@clerk/clerk-expo";
+
+WebBrowser.maybeCompleteAuthSession();
 
 const LoginScreen = () => {
+  useWarmUpBrowser();
+
+  const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
+
+  const onPress = React.useCallback(async () => {
+    try {
+      const { createdSessionId, signIn, signUp, setActive } =
+        await startOAuthFlow();
+
+      if (createdSessionId && setActive) {
+        setActive({ session: createdSessionId });
+      } else {
+        // Use signIn or signUp for next steps such as MFA
+      }
+    } catch (err) {
+      console.error("OAuth error", err);
+    }
+  }, []);
+
   return (
     <View style={styles.container}>
       <Image source={loginImage} style={styles.image} />
@@ -20,7 +44,9 @@ const LoginScreen = () => {
         </Text>
 
         <TouchableOpacity style={styles.btn}>
-          <Text style={styles.btnText}>Let's get started</Text>
+          <Text onPress={onPress} style={styles.btnText}>
+            Let's get started
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
