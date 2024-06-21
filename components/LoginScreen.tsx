@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     height: 450,
     width: 220,
     borderRadius: 20,
-    borderWidth: 4,
+    borderWidth: 6,
     borderColor: "black",
   },
   title: {

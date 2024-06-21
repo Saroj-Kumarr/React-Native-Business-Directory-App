@@ -13,7 +13,7 @@ const home = () => {
         marginBottom: 50,
       }}
     >
-      <Header />
+      <Header />   
       <Slider />
       <Category />
       <Business />

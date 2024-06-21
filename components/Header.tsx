@@ -15,9 +15,6 @@ const { width } = Dimensions.get("window");
 
 const Header = () => {
   const { user } = useUser();
-
-  console.log(user?.imageUrl);
-
   return (
     <View style={styles.container}>
       <View style={styles.headerContent}>

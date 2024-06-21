@@ -10,7 +10,9 @@ type CategoryType = {
   icon: string;
 };
 
-const Category = () => {
+const Category = ({explore}:{
+  explore:boolean
+}) => {
   const [categories, setCategories] = useState<CategoryType[]>([]);
 
   const getCategoryList = async () => {
@@ -35,34 +37,36 @@ const Category = () => {
         padding: 10,
       }}
     >
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Text
+      {!explore && (
+        <View
           style={{
-            color: "black",
-            fontSize: 18,
-            fontWeight: "bold",
-            marginVertical: 7,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
-          # Categories
-        </Text>
-        <Text
-          style={{
-            color: Colors.PRIMARY,
-            fontSize: 18,
-            fontWeight: "bold",
-            marginVertical: 7,
-          }}
-        >
-          View all
-        </Text>
-      </View>
+          <Text
+            style={{
+              color: "black",
+              fontSize: 18,
+              fontWeight: "bold",
+              marginVertical: 7,
+            }}
+          >
+            # Categories
+          </Text>
+          <Text
+            style={{
+              color: Colors.PRIMARY,
+              fontSize: 18,
+              fontWeight: "bold",
+              marginVertical: 7,
+            }}
+          >
+            View all
+          </Text>
+        </View>
+      )}
       <FlatList
         data={categories}
         horizontal={true}

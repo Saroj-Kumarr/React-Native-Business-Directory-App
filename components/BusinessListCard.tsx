@@ -1,5 +1,6 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import React from "react";
+import { Link } from "expo-router";
 
 type BusinessListType = {
   id: string;
@@ -14,18 +15,24 @@ type BusinessListType = {
 
 const BusinessListCard = ({ data }: { data: BusinessListType }) => {
   return (
-    <View style={styles.card}>
-      <Image source={{ uri: data.imageUrl }} style={styles.image} />
-      <View style={styles.infoContainer}>
-        <Text style={styles.name}>{data.name}</Text>
-        <Text style={styles.description} numberOfLines={3} ellipsizeMode="tail">
-          {data.description}
-        </Text>
-        <Text style={styles.address}>{data.address}</Text>
-        <Text style={styles.contact}>{data.contact}</Text>
-        <Text style={styles.website}>{data.website}</Text>
-      </View>
-    </View>
+    <Link href={"businesslist/" + data.id} asChild>
+      <Pressable style={styles.card}>
+        <Image source={{ uri: data.imageUrl }} style={styles.image} />
+        <View style={styles.infoContainer}>
+          <Text style={styles.name}>{data.name}</Text>
+          <Text
+            style={styles.description}
+            numberOfLines={3}
+            ellipsizeMode="tail"
+          >
+            {data.description}
+          </Text>
+          <Text style={styles.address}>{data.address}</Text>
+          <Text style={styles.contact}>{data.contact}</Text>
+          <Text style={styles.website}>{data.website}</Text>
+        </View>
+      </Pressable>
+    </Link>
   );
 };
 
@@ -35,12 +42,11 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 15,
     flexDirection: "row",
-    maxWidth: "90%",
+    marginVertical: 10,
   },
   image: {
     borderRadius: 15,
-    height: 100,
-    width: 100,
+    width: 130,
     marginRight: 10,
   },
   infoContainer: {
@@ -51,7 +57,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   description: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#666",
     flexWrap: "wrap",
   },
@@ -67,8 +73,11 @@ const styles = StyleSheet.create({
   },
   website: {
     fontSize: 12,
-    color: "#333",
+    color: "blue",
     marginTop: 5,
+    textDecorationLine: "underline",
+    textDecorationStyle: "solid",
+    textDecorationColor: "#000",
   },
 });
 
